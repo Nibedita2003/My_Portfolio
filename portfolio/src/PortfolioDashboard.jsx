@@ -1,5 +1,17 @@
 import React, { useState } from "react";
+// Profile image imported as a JPEG
 import profileImg from "./assets/nivs.jpeg";
+
+// Local asset imports for your 9 certificates updated to PNG
+import cert1 from "./assets/certi1.png";
+import cert2 from "./assets/certi2.png";
+import cert3 from "./assets/certi3.png";
+import cert4 from "./assets/certi4.png";
+import cert5 from "./assets/certi5.png";
+import cert6 from "./assets/certi6.png";
+import cert7 from "./assets/certi7.png";
+import cert8 from "./assets/certi8.png";
+import cert9 from "./assets/certi9.png";
 
 export default function PortfolioDashboard() {
   const [darkMode, setDarkMode] = useState(true);
@@ -55,6 +67,18 @@ export default function PortfolioDashboard() {
     }
   ];
 
+  const certificates = [
+    { id: 1, title: "Certificate 1", img: cert1 },
+    { id: 2, title: "Certificate 2", img: cert2 },
+    { id: 3, title: "Certificate 3", img: cert3 },
+    { id: 4, title: "Certificate 4", img: cert4 },
+    { id: 5, title: "Certificate 5", img: cert5 },
+    { id: 6, title: "Certificate 6", img: cert6 },
+    { id: 7, title: "Certificate 7", img: cert7 },
+    { id: 8, title: "Certificate 8", img: cert8 },
+    { id: 9, title: "Certificate 9", img: cert9 },
+  ];
+
   return (
     <div className={`min-h-screen transition-colors duration-300 font-mono p-4 md:p-12 lg:p-20 relative overflow-x-hidden selection:bg-emerald-500 selection:text-black ${
       darkMode ? "bg-[#07090e] text-[#a3b3c6]" : "bg-[#f8fafc] text-[#334155]"
@@ -80,6 +104,7 @@ export default function PortfolioDashboard() {
             <button onClick={() => scrollToSection("tech_stack")} className="hover:text-emerald-500 transition-colors px-2 py-1 cursor-pointer">./tech_stack</button>
             <button onClick={() => scrollToSection("about")} className="hover:text-emerald-500 transition-colors px-2 py-1 cursor-pointer">./about</button>
             <button onClick={() => scrollToSection("projects")} className="hover:text-emerald-500 transition-colors px-2 py-1 cursor-pointer">./projects</button>
+            <button onClick={() => scrollToSection("achievements")} className="hover:text-emerald-500 transition-colors px-2 py-1 cursor-pointer">./achievements</button>
             <button onClick={() => scrollToSection("contact")} className="hover:text-emerald-500 transition-colors px-2 py-1 cursor-pointer">./contact</button>
           </nav>
           
@@ -103,12 +128,11 @@ export default function PortfolioDashboard() {
         </div>
       </div>
 
-      {/* Outer Layout Matrix Container - Added pt-28 padding to balance the floating header */}
+      {/* Outer Layout Matrix Container */}
       <div className="max-w-4xl mx-auto relative z-10 space-y-24 pt-28 sm:pt-24">
         
         {/* ================= HERO SECTION ================= */}
         <section id="home" className="space-y-8 scroll-mt-36">
-          {/* PROFILE CARD GRAPHIC */}
           <div className="space-y-6 pl-2">
             <div className={`h-36 w-36 rounded-full p-[1px] overflow-hidden shrink-0 shadow-[0_0_20px_rgba(16,185,129,0.1)] bg-gradient-to-br ${
               darkMode ? "from-emerald-500/80 to-slate-900" : "from-emerald-500 to-slate-300"
@@ -231,6 +255,34 @@ export default function PortfolioDashboard() {
           </div>
         </section>
 
+        {/* ================= ACHIEVEMENTS SECTION ================= */}
+        <section id="achievements" className="space-y-4 scroll-mt-36">
+          <div className={`text-xl font-bold flex items-center gap-2 ${darkMode ? "text-white" : "text-slate-900"}`}>
+            <span className={darkMode ? "text-slate-600" : "text-slate-300"}>##</span> achievements
+          </div>
+          <p className={`text-xs pl-2 ${darkMode ? "text-slate-500" : "text-slate-400"}`}>Verified technical milestones and course credentials</p>
+          
+          <div className={`w-full overflow-hidden relative py-6 border-y [mask-image:linear-gradient(to_right,transparent_0%,#000_15%,#000_85%,transparent_100%)] ${
+            darkMode ? "bg-slate-950/20 border-slate-900/60" : "bg-slate-100/40 border-slate-200"
+          }`}>
+            <div className="flex gap-6 w-max hover:[animation-play-state:paused]" style={{ animation: 'marquee 30s linear infinite' }}>
+              {[...certificates, ...certificates].map((cert, idx) => (
+                <div key={idx} className={`border rounded p-1.5 transition-all duration-300 hover:border-emerald-500/60 shrink-0 ${
+                  darkMode ? "bg-slate-950/40 border-slate-900" : "bg-white border-slate-200 shadow-sm"
+                }`}>
+                  <div className="w-56 h-36 rounded overflow-hidden bg-slate-900/50 flex items-center justify-center">
+                    <img 
+                      src={cert.img} 
+                      alt={cert.title} 
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" 
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ================= CONTACT SECTION ================= */}
         <section id="contact" className="space-y-6 scroll-mt-36">
           <div className="space-y-2">
@@ -243,7 +295,6 @@ export default function PortfolioDashboard() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pl-2">
-            {/* Input Form Fields */}
             <form onSubmit={handleFormSubmit} className="space-y-4 md:col-span-7">
               <div className="relative">
                 <span className={`absolute left-4 top-3.5 text-xs ${darkMode ? "text-slate-600" : "text-slate-400"}`}>&gt;&gt;</span>
@@ -271,7 +322,7 @@ export default function PortfolioDashboard() {
                 <span className={`absolute left-4 top-3.5 text-xs ${darkMode ? "text-slate-600" : "text-slate-400"}`}>&gt;&gt;</span>
                 <textarea 
                   required rows="4" placeholder="your_message" value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  onChange={(e) => setFormData({...formData, message: e.slate || e.target.value})}
                   className={`w-full border rounded-lg py-3.5 pl-12 pr-4 text-xs outline-none focus:border-emerald-500/50 transition-all resize-none ${
                     darkMode ? "bg-[#0b0f17]/40 border-slate-900 text-slate-200 placeholder-slate-700" : "bg-white border-slate-200 text-slate-800 placeholder-slate-400 shadow-sm"
                   }`}
@@ -288,7 +339,6 @@ export default function PortfolioDashboard() {
               </button>
             </form>
 
-            {/* Social Matrix Footprint Endpoint Modules */}
             <div className="md:col-span-5 flex flex-col justify-start space-y-4">
               <div className={`border rounded-lg p-4 text-[11px] space-y-3 ${
                 darkMode ? "bg-slate-950/40 border-slate-900/60" : "bg-slate-50 border-slate-200 shadow-sm"
@@ -304,7 +354,7 @@ export default function PortfolioDashboard() {
                   </div>
                   <div>
                     <span className="text-slate-500">email: </span>
-                    <a href="mailto:nibedita.maharana2003@gmail.com" className="text-emerald-500 hover:underline font-bold">nibedita.maharana2003@gmail.com</a>
+                    <a href="mailto:nibeditamaharana670@gmail.com" className="text-emerald-500 hover:underline font-bold">nibedita.maharana2003@gmail.com</a>
                   </div>
                   <div>
                     <span className="text-slate-500">resume: </span>
